@@ -20,6 +20,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var xaxis: TextView? = null
     private var yaxis: TextView? = null
     private var zaxis: TextView? = null
+    private var gyr_xaxis: TextView? = null
+    private var gyr_yaxis: TextView? = null
+    private var gyr_zaxis: TextView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,6 +30,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         xaxis = findViewById(R.id.xaxis) as TextView
         yaxis = findViewById(R.id.yaxis) as TextView
         zaxis = findViewById(R.id.zaxis) as TextView
+        gyr_xaxis = findViewById(R.id.gyr_xaxis) as TextView
+        gyr_yaxis = findViewById(R.id.gyr_yaxis) as TextView
+        gyr_zaxis = findViewById(R.id.gyr_zaxis) as TextView
         prepareSensorManager()
         //preparar el sensor de la brujula
         //preparar el sensor de la brujula
@@ -110,6 +116,19 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             yaxis!!.text = "" + result
             result = round(valorz, 2)
             zaxis!!.text = "" + result
+        }
+        if (sensorEvent.sensor.type == Sensor.TYPE_GYROSCOPE) {
+            val valorx = sensorEvent.values[0]
+            val valory = sensorEvent.values[1]
+            val valorz = sensorEvent.values[2]
+            var result: BigDecimal
+            result = round(valorx, 2)
+            textView!!.text = "" + result
+            gyr_xaxis!!.text = "" + result
+            result = round(valory, 2)
+            gyr_yaxis!!.text = "" + result
+            result = round(valorz, 2)
+            gyr_zaxis!!.text = "" + result
         }
     }
 
